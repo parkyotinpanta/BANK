@@ -15,4 +15,4 @@ app.use('/gsb',homeroutes)
 
 
 
-app.listen(8880, () => console.log('ธนาคารเปิดแล้วค่ะ'))
+app.listen(8880, () => console.log('ระบบเช็ครายชื่อธนาคาร'))
