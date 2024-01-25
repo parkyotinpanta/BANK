@@ -11,6 +11,13 @@ module.exports = {
             .where('name', req.params.id)
         return res.status(200).send(panta)
     },
+    // join ยังไม่เข้าใจวิธีการจอย 
+    join: async (req, res) => {
+        const msi = await knex('bank')
+        .join('mobile', 'name.id', '=', 'mobile.name_id')
+        .select('name.id', 'phone.name')
+        return res.status(200).send(msi)
+    },
     insert: async (req, res) => {
         const { name, branch, personnel, money } = req.body;
         const yotin = await knex('bank').insert({
@@ -25,16 +32,16 @@ module.exports = {
                 name: req.params.id
             })
             .update({
-                money:"20.3"
+                money: "26.3"
             })
         return res.status(200).send('แก้ไขให้แล้ว')
     },
-        delete: async (req, res) => {
-            const ajua = await knex('bank')
+    delete: async (req, res) => {
+        const ajua = await knex('bank')
             .where({
-                name:req.params.id
+                name: req.params.id
             })
             .del()
-            return res.status(200).send('ลบได้แล้ว')
-        },
+        return res.status(200).send('ลบได้แล้ว')
+    },
 }
