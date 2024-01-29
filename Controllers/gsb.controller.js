@@ -4,18 +4,23 @@ module.exports = {
     select: async (req, res) => {
         const park = await knex.select().table('bank')
         console.log(park)
-        return res.status(200).json(park)
+        return res.status(200).send(park)
     },
     search: async (req, res) => {
         const panta = await knex('bank')
             .where('name', req.params.id)
         return res.status(200).send(panta)
     },
-    // join ยังไม่เข้าใจวิธีการจอย 
+    // join 
     join: async (req, res) => {
         const msi = await knex('bank')
-        .join('mobile', 'name.id', '=', 'mobile.name_id')
-        .select('name.id', 'phone.name')
+        .join('city','city.money','bank.money')
+        .select('bank.name', 'city.money')
+        // ในออฟเจ็กว่างเปล่า?
+        
+        // .from('bank')
+        // .innerJoin('city', 'bank.name', 'city.money')
+
         return res.status(200).send(msi)
     },
     insert: async (req, res) => {
@@ -24,7 +29,7 @@ module.exports = {
             name: name, branch: branch, personnel: personnel, money: money
         })
         console.log(yotin)
-        return res.status(200).send('เพิ่มได้แล้วนะ')
+        return res.status(200).send('เพิ่มได้แล้ว')
     },
     put: async (req, res) => {
         const keesongz = await knex('bank')
@@ -34,7 +39,7 @@ module.exports = {
             .update({
                 money: "26.3"
             })
-        return res.status(200).send('แก้ไขให้แล้ว')
+        return res.status(200).send('แก้ไขได้แล้ว')
     },
     delete: async (req, res) => {
         const ajua = await knex('bank')
