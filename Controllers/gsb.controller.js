@@ -14,12 +14,23 @@ module.exports = {
     // join 
     join: async (req, res) => {
         const msi = await knex('bank')
-        .join('city','city.money','bank.money')
-        .select('bank.name', 'city.money')
+        // .join('city','city.name','bank.name')
+        // .select('bank.name', 'city.money')
+
         // ในออฟเจ็กว่างเปล่า?
+        .from('bank')
+        .innerJoin('city', 'bank.name', 'city.money')
+
+        // left ยังไม่เก็ท
+        // const msi = await knex.select('*')
+        //     .from('bank')
+        //     .leftJoin('city', 'bank.money', 'city.money')
+
+        // right ก็ยังไม่เก็ท
+        // const msi = await knex.select('*')
+        //     .from('bank')
+        //     .rightJoin('city', 'bank.branch', 'city.money')
         
-        // .from('bank')
-        // .innerJoin('city', 'bank.name', 'city.money')
 
         return res.status(200).send(msi)
     },
